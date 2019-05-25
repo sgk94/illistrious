@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 // });
 
 var listsSchema = new mongoose.Schema ({
-    links: String
+    listname: String
 });
 
 var userSchema = new mongoose.Schema({

@@ -5,7 +5,5 @@ module.exports = {
 }
 
 function index(req, res, next) {
-    User.find(name)
-    console.log('query: ', name)
     res.render('users')
 }

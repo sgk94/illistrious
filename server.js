@@ -4,9 +4,10 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
-//authentication
+//session middleware
 var session = require('express-session');
 var passport = require('passport');
+var methodOverride = require('method-override');
 
 // load the env vars
 require('dotenv').config();
@@ -23,17 +24,19 @@ require('./config/passport');
 // require our routes
 var indexRoutes = require('./routes/index');
 var usersRoutes = require('./routes/users');
+var listsRoutes = require('./routes/lists');
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // session middleware for passport
 app.use(session({
@@ -49,6 +52,7 @@ app.use(passport.session());
 // mount all routes with appropriate base paths
 app.use('/', indexRoutes);
 app.use('/', usersRoutes);
+app.use('/', listsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
