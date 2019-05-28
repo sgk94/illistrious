@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="stylesheets/main.css" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/main.css" />
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
     <h1>DASHBOARD</h1>
     <br><br><h2>Add List</h2>
-    <form method="POST" action="/users/profile">
+    <form method="POST" action="/profile">
       <label>List Name:</label>
       <input type="text" name="listname" >
-      <label>Potato</label>
-      <input type="submit" value="Add List">
+      <input type="submit" value="Create List">
     </form>
-    <% user.lists.forEach(function(list) { %>
-        <% if (user.lists.length) { %>
-            <ul class="list-group">
-                <li class="list-group-item"><%= list.listname %></li>
-            </ul>
-            <% } else { %>
-               <h5>no list</h5>
-                <% } %>
-  <% }) %>
-    
+
+    <% lists.forEach(function(lists) { %>
+        <ul class="list-group-item">
+            <li><%= lists.listname %></li>
+        </ul>
+        <% if (lists._id.equals(lists && lists._id)) { %>
+            <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
+              <button type="submit">X</button>
+            </form>
+          <% } %>
+    <% }) %>
+
+            
 </body>
 </html>
