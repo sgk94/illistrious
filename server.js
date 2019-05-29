@@ -26,6 +26,7 @@ var indexRoutes = require('./routes/index');
 var usersRoutes = require('./routes/users');
 var listsRoutes = require('./routes/lists');
 var linksRoutes = require('./routes/links');
+var friendsRouters = require('./routes/friends');
 
 
 // view engine setup
@@ -55,6 +56,7 @@ app.use('/', indexRoutes);
 app.use('/', usersRoutes);
 app.use('/', listsRoutes);
 app.use('/', linksRoutes);
+app.use('/', friendsRouters);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

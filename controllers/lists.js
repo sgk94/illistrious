@@ -2,7 +2,7 @@ const User = require('../models/user');
 const List = require('../models/list');
 
 module.exports = {
-    new: newList,
+    showList,
     createList,
     deleteList
 }
@@ -25,7 +25,7 @@ function createList(req, res, next) {
         });
     }
 
-function newList (req, res, next) {
+function showList (req, res, next) {
 User.findById(req.user._id, function(err, user) {
     List.find({user: req.user._id },function(err, lists) {
         console.log("potato", req.user._id, "tomato: ", lists)
