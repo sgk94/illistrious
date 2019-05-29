@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
     name: String,
     email: String,
-    // friend: [friendSchema],
+    friend: [],
     googleId: String
 }, {
     timestamps: true
