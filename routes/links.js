@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var linksCtrl = require('../controllers/links');
 
-// router.get('/users/profile/:id', linksCtrl.newLink);
-router.post('/profile/:id/links', linksCtrl.createLink);
+router.post('/lists/:id/links', linksCtrl.createLink);
+router.delete('/links/:id', linksCtrl.deleteLink);
 
 module.exports = router;

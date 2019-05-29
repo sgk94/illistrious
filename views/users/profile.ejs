@@ -11,22 +11,54 @@
 </head>
 <body>
     <h1>DASHBOARD</h1>
-    <br><br><h2>Add List</h2>
-    <form method="POST" action="/profile">
+    <form method="POST" action="/profile" class="p-3 mb-2 bg-dark text-white" >
       <label>List Name:</label>
-      <input type="text" name="listname" >
+      <input type="text" name="listname" autocomplete="off" >
       <input type="submit" value="Create List">
     </form>
 
     <% lists.forEach(function(lists) { %>
-        <ul class="list-group-item">
-            <li><%= lists.listname %></li>
-        </ul>
-        <% if (lists._id.equals(lists && lists._id)) { %>
-            <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
-              <button type="submit">X</button>
-            </form>
-          <% } %>
+        <table class="table">
+            <thead class="p-3 mb-2 bg-primary text-white">
+                <tr>
+                    <th scope="col"><%= lists.listname %></th>
+                    <th scope="col">
+                        <% if (lists._id.equals(lists && lists._id)) { %>
+                            <form action="/lists/<%= lists._id %>/links"  method="POST">
+                            <input type="text" name="link" autocomplete="off" >
+                            <input type="submit" value="Add Link">
+                            </form>
+                        <% } %>
+
+                    </th>
+                    <th scope="col">
+                        <% if (lists._id.equals(lists && lists._id)) { %>
+                        <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
+                          <button type="submit">Delete List</button>
+                        </form>
+                      <% } %>
+                    </th>
+                </tr>
+            </thead>
+           <% lists.links.forEach(function(links) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <td <a href="<%= links.link %>"><%= links.link %></a>
+                            </td>
+                            </th>
+                            <th scope="col">
+                                <% if (links._id.equals(links && links._id)){ %>
+                                    <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
+                                        <button type="submit">Delete Link</button>
+                                    </form>
+                                    <% } %>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>     
+           <% }) %>
     <% }) %>
 
             
