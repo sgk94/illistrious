@@ -4,63 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="stylesheets/main.css" />
+    <!-- Materialize CSS Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href='/stylesheets/main.css'/>
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
+    <!-- JavaScript for Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <h1>DASHBOARD</h1>
-    <form method="POST" action="/profile" class="p-3 mb-2 bg-dark text-white" >
-      <label>List Name:</label>
-      <input type="text" name="listname" autocomplete="off" >
-      <input type="submit" value="Create List">
-    </form>
-
-    <% lists.forEach(function(lists) { %>
-        <table class="table">
-            <thead class="p-3 mb-2 bg-primary text-white">
-                <tr>
-                    <th scope="col"><%= lists.listname %></th>
-                    <th scope="col">
-                        <% if (lists._id.equals(lists && lists._id)) { %>
-                            <form action="/lists/<%= lists._id %>/links"  method="POST">
-                            <input type="text" name="link" autocomplete="off" >
-                            <input type="submit" value="Add Link">
+    <nav>
+        <a href="/users">HOME</a>
+        <a href="/users/profile">PROFILE</a>
+        <a href="">FRIENDS</a>
+        <a href="/logout">Log Out</a>
+        <a href="/auth/google">Login with Google</a>
+    </nav>
+    <div class="container">
+        <div class="col s12">
+            <div class="card-panel teal lighten-2 white-text">
+                <h1>DASHBOARD</h1>
+                <form method="POST" action="/profile" >
+                  <label class="white-text">LIST NAME</label>
+                  <input type="text" name="listname" autocomplete="off" >
+                  <button class="btn waves-effect waves-light" type="submit">Create List</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+        <div class="card-panel teal lighten-2 white-text col s12">
+        <% lists.forEach(function(lists) { %>
+            <h2><%= lists.listname %></h2>
+            <% lists.links.forEach(function(links) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                        <div class="card white col m12">
+                            <a href="<%= links.link %>"><%= links.link %></a>
+                        </div>
+                        </th>
+                        <th>
+                        <% if (links._id.equals(links && links._id)){ %>
+                            <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
+                                <button class="btn waves-effect waves-light" type="submit">Delete</button>
                             </form>
-                        <% } %>
-
-                    </th>
-                    <th scope="col">
+                            <% } %>
+                        </th>
+                    </tr>
+                </thead>
+            </table>     
+            <% }) %>
+                    <% if (lists._id.equals(lists && lists._id)) { %>
+                <form action="/lists/<%= lists._id %>/links"  method="POST">
+                    <input type="text" name="link" autocomplete="off" placeholder="Add Link Here">
+                    <button class="btn waves-effect waves-light green" type="submit">Add Link</button>
+                </form>
+                <% } %>
                         <% if (lists._id.equals(lists && lists._id)) { %>
-                        <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
-                          <button type="submit">Delete List</button>
-                        </form>
-                      <% } %>
-                    </th>
-                </tr>
-            </thead>
-           <% lists.links.forEach(function(links) { %>
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <td <a href="<%= links.link %>"><%= links.link %></a>
-                            </td>
-                            </th>
-                            <th scope="col">
-                                <% if (links._id.equals(links && links._id)){ %>
-                                    <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
-                                        <button type="submit">Delete Link</button>
-                                    </form>
-                                    <% } %>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>     
-           <% }) %>
-    <% }) %>
+                <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
+                    <button class="btn waves-effect waves-light red" type="submit">Delete List</button>
+                </form>
+                <% } %>
+                <% }) %>
 
-            
+            </div>
+    </div>
+</div>                   
 </body>
 </html>

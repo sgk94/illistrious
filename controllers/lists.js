@@ -27,9 +27,11 @@ function createList(req, res, next) {
 
 function newList (req, res, next) {
 User.findById(req.user._id, function(err, user) {
-    List.find({}, function(err, lists) {
+    List.find({user: req.user._id },function(err, lists) {
+        console.log("potato", req.user._id, "tomato: ", lists)
         res.render('users/profile', {
             lists,
+            user
         });
     });
 });
