@@ -5,7 +5,16 @@ module.exports = {
     showList,
     createList,
     deleteList
+    // editList
 }
+
+// function editList (req, res, next) {
+//     List.findByIdAndUpdate(req.params.id, function(err, list) {
+//         list.save(function(err) {
+//             res.redirect('  users')
+//         });
+//     });
+// }
 
 function deleteList (req, res, next) {
 List.findById(req.params.id, function(err, list) {
@@ -17,7 +26,7 @@ List.findById(req.params.id, function(err, list) {
 }
 
 
-function createList(req, res, next) {
+function createList (req, res, next) {
     var list = new List(req.body);
         list.user = req.user._id;
         list.save(function(err) {
