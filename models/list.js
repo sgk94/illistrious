@@ -7,7 +7,9 @@ var linkSchema = new mongoose.Schema ({
 var listSchema = new mongoose.Schema ({
     listname: String,
     links: [linkSchema],
-    user: {type: mongoose.Schema.Types.ObjectId, ref: 'List'}
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'List'},
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('List', listSchema);

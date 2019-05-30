@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="navbar-fixed">
-    <nav>
+    <nav class="#263238 blue-grey darken-4">
         <div class="nav-wrapper">
         <ul class="right">
         <li>
@@ -24,6 +24,7 @@
         </li>
         <li><a href="/users/profile">PROFILE</a></li>
         <li><a href="/users/friends">FRIENDS</a></li>
+        <li><a href="/users/community">COMMUNITY</a></li>
         <li>
           <% if (user) { %>
           <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
@@ -37,17 +38,17 @@
 </div>
     <div class="container">
         <div class="col s12">
-            <div class="card-panel teal lighten-2 white-text">
+            <div class="card-panel #263238 blue-grey darken-4 white-text">
                 <h1>DASHBOARD</h1>
                 <form method="POST" action="/profile" >
                   <label class="white-text">LIST NAME</label>
-                  <input type="text" name="listname" placeholder="Name Your List Here" autocomplete="off" >
+                  <input class="white-text" type="text" name="listname" placeholder="Name Your List Here" autocomplete="off" >
                   <button class="btn waves-effect waves-light" type="submit">Create List</button>
                 </form>
             </div>
         </div>
         <div class="row">
-        <div class="card-panel teal lighten-2 white-text col s12">
+        <div class="card-panel #263238 blue-grey darken-4 white-text col s12">
         <% lists.forEach(function(lists) { %>
             <h2><%= lists.listname %></h2>
             <% if (lists._id.equals(lists && lists._id)) { %>
@@ -61,14 +62,14 @@
                 <thead>
                     <tr>
                         <th>
-                        <div class="card white col m12">
+                        <div class="card #eceff1 blue-grey lighten-5 col m12">
                             <a target="_blank" href="<%= links.link %>"><%= links.link %></a>
                         </div>
                         </th>
                         <th>
                         <% if (links._id.equals(links && links._id)){ %>
                             <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
-                                <button class="btn waves-effect waves-light" type="submit">Delete</button>
+                                <button class="btn waves-effect waves-light #607d8b blue-grey" type="submit">Delete</button>
                             </form>
                             <% } %>
                         </th>
@@ -78,7 +79,7 @@
             <% }) %>
                     <% if (lists._id.equals(lists && lists._id)) { %>
                 <form action="/lists/<%= lists._id %>/links"  method="POST">
-                    <input type="text" name="link" autocomplete="off" placeholder="Add Link Here">
+                    <input type="text" name="link" autocomplete="off" placeholder="Add Link Here" class="white-text">
                     <button class="btn waves-effect waves-light green" type="submit">Add Link</button>
                 </form>
                 <% } %>

@@ -26,7 +26,7 @@
         <li><a href="/users/friends">FRIENDS</a></li>
         <li><a href="/users/community">COMMUNITY</a></li>
         <li>
-          <% if (user) { %>
+          <% if (users) { %>
           <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
           <% } else { %>
           <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
@@ -36,11 +36,50 @@
         </div>
     </nav>
 </div>
-    <h1>FRIENDS</h1>
-    <% if (requests.length) { %>
-        <h2>test</h2>
-   <% } else { %>
-       <h2>No Friends</h2>
-   <% } %>
+    <h1>Listers</h1>
+
+
+    <div class="row">
+        <% users.forEach(function(user) { %>
+            <div class="col s12 m3">
+              <div class="card">
+                <div class="card-image">
+                    <% if (user.avatar) { %>
+                    <img src="<%= user.avatar %>" alt="" class="circle responsive-img">
+                    <span class="card-title black-text"><%= user.name %></span>
+                    
+                    <form action="/friends" method=POST>
+                    <input type="hidden" value="<%= user._id %>" name=recipient>
+                    <button class="btn-floating halfway-fab waves-effect waves-light red" type="submit"><i class="material-icons">add</i></button>
+                    </form>
+
+
+
+                    <% } else { %>
+                    <i class="small material-icons">perm_identity</i>
+                    <span class ="user-name #263238-text"><%= user.name %></span>
+                    <% } %>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
