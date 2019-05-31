@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const List = require('../models/list');
+const Friend = require('../models/friend');
 
 module.exports = {
     showList,
@@ -37,10 +38,13 @@ function createList (req, res, next) {
 function showList (req, res, next) {
 User.findById(req.user._id, function(err, user) {
     List.find({user: req.user._id },function(err, lists) {
-        console.log("potato", req.user._id, "tomato: ", lists)
-        res.render('users/profile', {
-            lists,
-            user
+        Friend.find({}, function(err, friends) {
+            console.log("potato", req.user._id, "tomato: ", lists)
+            res.render('users/profile', {
+                lists,
+                user,
+                friends
+            });
         });
     });
 });

@@ -23,10 +23,14 @@
           <a href="/users">HOME</a>
         </li>
         <li><a href="/users/profile">PROFILE</a></li>
+        <% if (requests.length > 0) { %>
+        <li><a href="/users/friends">FRIENDS<span class="new badge"><%= requests.length %></span></a></li>
+       <% } else { %>
         <li><a href="/users/friends">FRIENDS</a></li>
+       <% } %>
         <li><a href="/users/community">COMMUNITY</a></li>
         <li>
-          <% if (user) { %>
+          <% if (me) { %>
           <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
           <% } else { %>
           <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
@@ -37,8 +41,33 @@
     </nav>
 </div>
     <h1>FRIENDS</h1>
-    <% if (requests.length) { %>
-        <h2>test</h2>
+    <% if (requests) { %>
+        <div class="row">
+    <% requests.forEach(function(r) { %>
+        <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image ">
+                      <% if (r.requester.avatar) { %>
+                      <img src="<%= r.requester.avatar %>" alt="" class="circle responsive-img">
+                      <span class="card-title black-text"><%= r.requester.name %></span>
+                      <% } else { %>
+                        <i class="small material-icons">perm_identity</i>
+                        <span class ="user-name #263238-text"><%= r.requester.name %></span>
+                        <% } %>
+                        <form action="/friends/<%= r._id %>?_method=DELETE" method=POST>
+                            <input type="hidden" value="<%= r._id %>" name=recipient>
+                            <button class="btn-small waves-effect waves-light red right" type="submit"><i class="material-icons">delete</i></button>
+                            </form>
+                        <form action="/friends/<%= r._id %>" method=POST>
+                            <input type="hidden" value="<%= r._id %>" name=recipient>
+                            <button class="btn-small waves-effect waves-light green right" type="submit"><i class="material-icons">done</i></button>
+                            </form>
+                            
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+            </div>
    <% } else { %>
        <h2>No Friends</h2>
    <% } %>

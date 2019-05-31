@@ -23,7 +23,11 @@
           <a href="/users">HOME</a>
         </li>
         <li><a href="/users/profile">PROFILE</a></li>
+        <% if (friends.length > 0) { %>
+        <li><a href="/users/friends">FRIENDS<span class="new badge"><%= friends.length %></span></a></li>
+        <% } else { %>
         <li><a href="/users/friends">FRIENDS</a></li>
+        <% } %>
         <li><a href="/users/community">COMMUNITY</a></li>
         <li>
           <% if (users) { %>

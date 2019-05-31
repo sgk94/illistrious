@@ -8,8 +8,11 @@ module.exports = {
 
 function showUsers(req, res, next) {
 User.find({}, function(err, users) {
-    res.render('users/community', {
-        users
+    Friend.find({}, function(err, friends) {
+        res.render('users/community', {
+            users,
+            friends
+        });
     });
 });
 }

@@ -5,7 +5,7 @@ var userSchema = new mongoose.Schema({
     email: String,
     googleId: String,
     avatar: String,
-    friends: [String]
+    friends: [{type: mongoose.Schema.Types.ObjectId, ref:'Friend'}]
 
 }, {
     timestamps: true
