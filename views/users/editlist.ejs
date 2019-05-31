@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Materialize CSS Framework -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css" />
+    <link rel="stylesheet" href='/stylesheets/main.css' />
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <!-- JavaScript for Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>illistrious</title>
+    <title>Illistrious</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
                     <% } %>
                     <li><a href="/users/community">COMMUNITY</a></li>
                     <li>
-                        <% if (user) { %>
+                        <% if (me) { %>
                         <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
                         <% } else { %>
                         <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
@@ -42,31 +42,21 @@
             </div>
         </nav>
     </div>
-    <h1>NEWSFEED</h1>
-    <% list.forEach(function(list) { %>
     <div class="container">
         <div class="row">
-            <div class="card-panel #263238 blue-grey darken-4 white-text col s12">
+                <h1 class="card-panel #263238 blue-grey darken-4 white-text col s12">Edit List Name </h1>
+        <div class="card-panel #263238 blue-grey darken-4 white-text col s12">
+            <form action="/profile/<%= list._id %>?_method=PUT" method="POST">
                 <h2><%= list.listname %></h2>
-                <% list.links.forEach(function(links) { %>
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                <div class="card #eceff1 blue-grey lighten-5 col m12">
-                                    <a target="_blank" href="<%= links.link %>"><%= links.link %></a>
-                                </div>
-                            </th>
-                            <th>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-                <% }) %>
-            </div>
+                <input type="text" name="listname" autocomplete="off" placeholder="Rename list here" class="white-text">
+                <button class="btn waves-effect waves-light #607d8b blue-grey" type="submit">Submit</button>
+            </form>
+            <form action="/profile/<%= list._id %>?_method=DELETE" method="POST">
+                <button class="btn waves-effect waves-light red right"
+                onclick="return confirm('Are you sure you want to delete?')" type="submit">Delete List</button>
+            </form>
         </div>
     </div>
-    <% }) %>
+</div>
 </body>
-
 </html>

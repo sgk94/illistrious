@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,91 +9,86 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Materialize CSS Framework -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href='/stylesheets/main.css'/>
+    <link rel="stylesheet" href='/stylesheets/main.css' />
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <!-- JavaScript for Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Document</title>
+    <title>Illistrious</title>
 </head>
+
 <body>
-<div class="navbar-fixed">
-    <nav class="#263238 blue-grey darken-4">
-        <div class="nav-wrapper">
-        <ul class="right">
-        <li>
-          <a href="/users">HOME</a>
-        </li>
-        <li><a href="/users/profile">PROFILE</a></li>
-        <% if (friends.length > 0) { %>
-        <li><a href="/users/friends">FRIENDS<span class="new badge"><%= friends.length %></span></a></li>
-        <% } else { %>
-        <li><a href="/users/friends">FRIENDS</a></li>
-        <% } %>
-        <li><a href="/users/community">COMMUNITY</a></li>
-        <li>
-          <% if (user) { %>
-          <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
-          <% } else { %>
-          <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
-          <% } %>
-        </li>
-        </ul>
-        </div>
-    </nav>
-</div>
+    <div class="navbar-fixed">
+        <nav class="#263238 blue-grey darken-4">
+            <div class="nav-wrapper">
+                <ul class="right">
+                    <li>
+                        <a href="/users">HOME</a>
+                    </li>
+                    <li><a href="/users/profile">PROFILE</a></li>
+                    <% if (friends.length > 0) { %>
+                    <li><a href="/users/friends">FRIENDS<span class="new badge"><%= friends.length %></span></a></li>
+                    <% } else { %>
+                    <li><a href="/users/friends">FRIENDS</a></li>
+                    <% } %>
+                    <li><a href="/users/community">COMMUNITY</a></li>
+                    <li>
+                        <% if (user) { %>
+                        <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
+                        <% } else { %>
+                        <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
+                        <% } %>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="container">
         <div class="col s12">
             <div class="card-panel #263238 blue-grey darken-4 white-text">
                 <h1 id="dashboard">DASHBOARD</h1>
-                <form method="POST" action="/profile" >
-                  <label class="white-text">LIST NAME</label>
-                  <input class="white-text" type="text" name="listname" placeholder="Name Your List Here" autocomplete="off" >
-                  <button class="btn waves-effect waves-light" type="submit">Create List</button>
+                <form method="POST" action="/profile">
+                    <label class="white-text">LIST NAME</label>
+                    <input class="white-text" type="text" name="listname" placeholder="Name Your List Here"
+                        autocomplete="off">
+                    <button class="btn waves-effect waves-light" type="submit">Create List</button>
                 </form>
             </div>
         </div>
-        <div class="row">
-        <div class="card-panel #263238 blue-grey darken-4 white-text col s12">
         <% lists.forEach(function(lists) { %>
-            <h2><%= lists.listname %></h2>
-
-            <% if (lists._id.equals(lists && lists._id)) { %>
-                <form action="/profile/<%= lists._id %>?_method=DELETE" method="POST">
-                    <button class="btn waves-effect waves-light red" onclick="return confirm('Are you sure you want to delete?')" type="submit">Delete List</button>
-                </form>
-                <% } %>
-
-            <% lists.links.forEach(function(links) { %>
-            <table class="striped">
-                <thead>
-                    <tr>
-                        <th>
-                        <div class="card #eceff1 blue-grey lighten-5 col m12">
-                            <a target="_blank" href="<%= links.link %>"><%= links.link %></a>
-                        </div>
-                        </th>
-                        <th>
-                        <% if (links._id.equals(links && links._id)){ %>
-                            <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
-                                <button class="btn waves-effect waves-light #607d8b blue-grey" type="submit">Delete</button>
-                            </form>
-                            <% } %>
-                        </th>
-                    </tr>
-                </thead>
-            </table>     
-            <% }) %>
-                    <% if (lists._id.equals(lists && lists._id)) { %>
-                <form action="/lists/<%= lists._id %>/links"  method="POST">
-                    <input type="text" name="link" autocomplete="off" placeholder="Add Link Here, must start with HTTP" class="white-text">
+            <div class="row">
+                <div class="card-panel #263238 blue-grey darken-4 white-text col s12">
+                <h2><%= lists.listname %></h2>
+                <form action="/lists/<%= lists._id %>/links" method="POST">
+                    <input type="text" name="link" autocomplete="off" placeholder="Add Link Here, must start with HTTP"
+                        class="white-text">
                     <button class="btn waves-effect waves-light green" type="submit">Add Link</button>
                 </form>
-                <% } %>
-                      
+                <% lists.links.forEach(function(links) { %>
+                    <table class="striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="card #eceff1 blue-grey lighten-5 col m12">
+                                        <a target="_blank" href="<%= links.link %>"><%= links.link %></a>
+                                    </div>
+                                </th>
+                                <th>
+                                    <% if (links._id.equals(links && links._id)){ %>
+                                        <form action="/links/<%= links._id %>?_method=DELETE" method="POST">
+                                            <button class="btn waves-effect waves-light #607d8b blue-grey"
+                                            type="submit">Delete</button>
+                                        </form>
+                                        <% } %>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <% }) %>
+                        <a href="/profile/<%= lists._id %>" class="btn waves-effect waves-light red right">Edit List</a>
+                    </div>
+                </div>
                 <% }) %>
-
-            </div>
     </div>
-</div>              
 </body>
+
 </html>

@@ -8,7 +8,7 @@ module.exports = {
 
 function showUsers(req, res, next) {
 User.find({}, function(err, users) {
-    Friend.find({}, function(err, friends) {
+    Friend.find({recipient: req.user }, function(err, friends) {
         res.render('users/community', {
             users,
             friends

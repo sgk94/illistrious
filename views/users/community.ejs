@@ -1,69 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Google Icon Fonts used by Materialize -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Materialize CSS Framework -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href='/stylesheets/main.css'/>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
-    <!-- JavaScript for Materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-<div class="navbar-fixed">
-    <nav class="#263238 blue-grey darken-4">
-        <div class="nav-wrapper">
-        <ul class="right">
-        <li>
-          <a href="/users">HOME</a>
-        </li>
-        <li><a href="/users/profile">PROFILE</a></li>
-        <% if (friends.length > 0) { %>
-        <li><a href="/users/friends">FRIENDS<span class="new badge"><%= friends.length %></span></a></li>
-        <% } else { %>
-        <li><a href="/users/friends">FRIENDS</a></li>
-        <% } %>
-        <li><a href="/users/community">COMMUNITY</a></li>
-        <li>
-          <% if (users) { %>
-          <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
-          <% } else { %>
-          <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
-          <% } %>
-        </li>
-        </ul>
-        </div>
-    </nav>
-</div>
-    <h1>Members</h1>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Google Icon Fonts used by Materialize -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Materialize CSS Framework -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href='/stylesheets/main.css' />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap" rel="stylesheet">
+  <!-- JavaScript for Materialize -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <title>Illistrious</title>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+    <nav class="#263238 blue-grey darken-4">
+      <div class="nav-wrapper">
+        <ul class="right">
+          <li>
+            <a href="/users">HOME</a>
+          </li>
+          <li><a href="/users/profile">PROFILE</a></li>
+          <% if (friends.length > 0) { %>
+          <li><a href="/users/friends">FRIENDS<span class="new badge"><%= friends.length %></span></a></li>
+          <% } else { %>
+          <li><a href="/users/friends">FRIENDS</a></li>
+          <% } %>
+          <li><a href="/users/community">COMMUNITY</a></li>
+          <li>
+            <% if (users) { %>
+            <a href="/logout"><i class="material-icons left">trending_flat</i>Log Out</a>
+            <% } else { %>
+            <a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a>
+            <% } %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <h1>Members</h1>
+
+  <% users.forEach(function(user) { %>
+    <% if (user.avatar) { %>
     <div class="row">
-        <% users.forEach(function(user) { %>
-            <div class="col s12 m3">
-              <div class="card">
-                <div class="card-image">
-                    <% if (user.avatar) { %>
-                    <img src="<%= user.avatar %>" alt="" class="circle responsive-img">
-                    <span class="card-title black-text"><%= user.name %></span>
-                    <form action="/friends" method=POST>
-                    <input type="hidden" value="<%= user._id %>" name=recipient>
-                    <button class="btn-floating halfway-fab waves-effect waves-light red" type="submit"><i class="material-icons">add</i></button>
-                    </form>
-                    <% } else { %>
-                    <i class="small material-icons">perm_identity</i>
-                    <span class ="user-name #263238-text"><%= user.name %></span>
-                    <% } %>
-                </div>
-              </div>
-            </div>
-            <% }) %>
-          </div>
+    <div class="col s3">
+      <div class="card">
+        <div class="card-image">
+          <img src="<%= user.avatar %>" alt="" class="circle responsive-img">
+          <span class="card-title black-text"><%= user.name %></span>
+          <form action="/friends" method=POST>
+            <input type="hidden" value="<%= user._id %>" name=recipient>
+            <button class="btn-floating halfway-fab waves-effect waves-light red" type="submit"><i
+                class="material-icons">add</i></button>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+    <% } else { %>
+      <div class="card">
+        <div class="card-image">
+          <i class="small material-icons">perm_identity</i>
+          <span class="user-name #263238-text"><%= user.name %></span>
+        </div>
+      </div>
+      <% } %>
+      <% }) %>
 
 
 </body>
+
 </html>

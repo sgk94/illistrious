@@ -23,17 +23,18 @@ function acceptRequest(req, res) {
         Friend.findById(req.params.id).populate('requester').exec(function (err, request) {
                 var newFriend = request.requester
                 user.friends.push(newFriend);
-                console.log(request);
-                Friend.findByIdAndDelete(request._id, function(err) {
-                    user.save(function(err) {
-                            res.redirect('/users/friends')
+                newFriend.friends.push(req.user);
+                newFriend.save(function (err) {
+                    // console.log("requester: ", newFriend, "USER: ", req.user);
+                    Friend.findByIdAndDelete(request._id, function(err) {
+                        user.save(function(err) {
+                                res.redirect('/users/friends')
+                        })
                     });
                 });
             });
        });
     }
-
-
 
 function showRequest(req, res) {
     User.find(req.user, function (err, me) {
