@@ -10,36 +10,34 @@ module.exports = {
 }
 function declineRequest(req, res) {
     Friend.findById(req.params.id).populate('requester').exec(function (err, request) {
-            Friend.findByIdAndDelete(request._id, function(err) {
-                request.save(function(err) {
-                        res.redirect('/users/friends')
+        Friend.findByIdAndDelete(request._id, function (err) {
+            request.save(function (err) {
+                res.redirect('/users/friends')
             });
         });
     });
 }
 
 function acceptRequest(req, res) {
-    User.findById(req.user._id, function(err, user) {
+    User.findById(req.user._id, function (err, user) {
         Friend.findById(req.params.id).populate('requester').exec(function (err, request) {
-                var newFriend = request.requester
-                user.friends.push(newFriend);
-                newFriend.friends.push(req.user);
-                newFriend.save(function (err) {
-                    // console.log("requester: ", newFriend, "USER: ", req.user);
-                    Friend.findByIdAndDelete(request._id, function(err) {
-                        user.save(function(err) {
-                                res.redirect('/users/friends')
-                        })
-                    });
+            var newFriend = request.requester
+            user.friends.push(newFriend);
+            newFriend.friends.push(req.user);
+            newFriend.save(function (err) {
+                Friend.findByIdAndDelete(request._id, function (err) {
+                    user.save(function (err) {
+                        res.redirect('/users/friends')
+                    })
                 });
             });
-       });
-    }
+        });
+    });
+}
 
 function showRequest(req, res) {
     User.find(req.user, function (err, me) {
         Friend.find({ recipient: req.user }).populate('requester').exec(function (err, requests) {
-            // console.log(requests)
             res.render('users/friends', {
                 requests,
                 me
