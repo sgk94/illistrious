@@ -24,7 +24,7 @@ Ever come across a bunch of links on the internet that you want to share with yo
 ---
 ## Technologies Used
 
-HTML5 | CSS3 | Javascript | Node.js | Express | Mongoose | MongoDB | Materialize
+HTML5 | CSS3 | Javascript | Node.js | Express | Mongoose | MongoDB | Materialize | <a href = https://trello.com/b/zCfeg4Il/social-media-list-app> Trello</a>
 
 ---
 ## Next Steps
